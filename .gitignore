@@ -1,0 +1,14 @@
+# Gradle
+
+.gradle/
+
+
+# Java
+
+*.jar
+*.class
+
+
+# exclude gradle wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
