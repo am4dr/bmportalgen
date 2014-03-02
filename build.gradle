@@ -7,6 +7,9 @@
  * user guide available at http://gradle.org/docs/1.10/userguide/tutorial_java_projects.html
  */
 
+project.ext {
+    dataDirectory = 'data'
+}
 
 repositories {
     mavenCentral()
@@ -18,5 +21,14 @@ dependencies {
 
 task generate << {
     println "generate!"
+}
+
+
+task printDataFiles() << {
+    println "data directory is ${dataDirectory}"
+    file(dataDirectory).listFiles(
+        {it.isFile()} as FileFilter).each { File file ->
+            println file.name
+            file.eachLine { println it }}
 }
 
