@@ -32,24 +32,40 @@ task generate << {
     }
 
     // 対象ファイル作成
-    // TODO 現状はコピーしているだけなのでテンプレートに埋め込むようにする
-    readBookmarkData().each { bookmark ->
-        file(destination + '/' + bookmark.name).with { File file ->
-            if (createNewFile()) {
-                println "create file: " + file.name
-                setText(bookmark.text)
-            }
-        }
+    file(destination+'/index.html').with { file ->
+        createNewFile()
+        jsonToHtml(readBookmarkData())
+        //setText(jsonToHtml(readBookmarkData()))
+        //println getText()
     }
 }
 
-import groovy.io.FileType
 def readBookmarkData() {
-    def bookmarks = []
-    file(dataDirectory).eachFile(FileType.FILES) { File file ->
-        bookmarks.add([name:file.name, text:file.getText()])
+    def slurper = new groovy.json.JsonSlurper()
+    file(dataDirectory)\
+        .listFiles({it.isFile()} as FileFilter)\
+        .inject([]) { bookmarks, file ->
+            bookmarks += slurper.parseText(file.text).bookmarks?:[]
+        }
+}
+
+def jsonToHtml(def bookmarks) {
+    def builder = new groovy.xml.MarkupBuilder()
+    builder.html {
+        head {
+            title "bookmarks"
+        }
+        body {
+            ul {
+                bookmarks.each { bookmark ->
+                    li {
+                        a (href:bookmark.url, bookmark.title)
+                    }
+                }
+            }
+        }
     }
-    return bookmarks
+    print "html: " + builder
 }
 
 task printDataFiles << {
