@@ -9,6 +9,7 @@
 
 project.ext {
     dataDirectory = 'data'
+    destination = 'dest'
 }
 
 repositories {
@@ -19,16 +20,43 @@ repositories {
 dependencies {
 }
 
+// TODO implement task('clean')
+task clean
+
 task generate << {
-    println "generate!"
+    // 対象ディレクトリ作成
+    file(destination).with {
+        if (!exists()) {
+            mkdir()
+        }
+    }
+
+    // 対象ファイル作成
+    // TODO 現状はコピーしているだけなのでテンプレートに埋め込むようにする
+    readBookmarkData().each { bookmark ->
+        file(destination + '/' + bookmark.name).with { File file ->
+            if (createNewFile()) {
+                println "create file: " + file.name
+                setText(bookmark.text)
+            }
+        }
+    }
 }
 
+import groovy.io.FileType
+def readBookmarkData() {
+    def bookmarks = []
+    file(dataDirectory).eachFile(FileType.FILES) { File file ->
+        bookmarks.add([name:file.name, text:file.getText()])
+    }
+    return bookmarks
+}
 
-task printDataFiles() << {
+task printDataFiles << {
     println "data directory is ${dataDirectory}"
-    file(dataDirectory).listFiles(
-        {it.isFile()} as FileFilter).each { File file ->
-            println file.name
-            file.eachLine { println it }}
+    file(dataDirectory).eachFile(FileType.FILES) { File file ->
+        println "# " + file.name
+        println file.getText()
+    }
 }
 
