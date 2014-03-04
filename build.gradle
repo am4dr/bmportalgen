@@ -10,16 +10,16 @@ repositories {
 
 task generate << {
     // 対象ディレクトリ作成
-    file(destination).with {
-        if (!exists()) {
-            mkdir()
+    file(destination).with { dir ->
+        if (!dir.exists()) {
+            dir.mkdir()
         }
     }
 
     // 対象ファイル作成
     file(destination+'/index.html').with { file ->
-        createNewFile()
-        setText(buildHtml(readBookmarkData()))
+        file.createNewFile()
+        file.setText(buildHtml(readBookmarkData()))
     }
 }
 
