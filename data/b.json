@@ -2,11 +2,11 @@
     "bookmarks": [
         {
             "title": "google",
-            "url": "google.com"
+            "url": "http://google.com/"
         },
         {
             "title": "yahoo japan",
-            "url": "yahoo.co.jp"
+            "url": "http://yahoo.co.jp/"
         }
     ]
 }
