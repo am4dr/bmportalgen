@@ -8,10 +8,6 @@ repositories {
     mavenCentral()
 }
 
-// TODO add dependencies
-dependencies {
-}
-
 // TODO implement task('clean')
 task clean
 
