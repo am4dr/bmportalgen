@@ -1,5 +1,5 @@
 
-project.ext {
+ext {
     dataDirectory = 'data'
     destination = 'dest'
 }
