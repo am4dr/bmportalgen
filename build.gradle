@@ -8,9 +8,6 @@ repositories {
     mavenCentral()
 }
 
-// TODO implement task('clean')
-task clean
-
 task generate << {
     // 対象ディレクトリ作成
     file(destination).with {
