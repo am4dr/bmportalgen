@@ -19,9 +19,7 @@ task generate << {
     // 対象ファイル作成
     file(destination+'/index.html').with { file ->
         createNewFile()
-        buildHtml(readBookmarkData())
-        //setText(jsonToHtml(readBookmarkData()))
-        //println getText()
+        setText(buildHtml(readBookmarkData()))
     }
 }
 
@@ -35,7 +33,8 @@ def readBookmarkData() {
 }
 
 def buildHtml(def bookmarks) {
-    def builder = new groovy.xml.MarkupBuilder()
+    def writer = new StringWriter()
+    def builder = new groovy.xml.MarkupBuilder(writer)
     builder.html {
         head {
             title "bookmarks"
@@ -50,7 +49,7 @@ def buildHtml(def bookmarks) {
             }
         }
     }
-    print "html: " + builder
+    writer.toString()
 }
 
 task printDataFiles << {
