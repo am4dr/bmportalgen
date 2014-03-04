@@ -1,7 +1,7 @@
 
 ext {
     dataDirectory = 'data'
-    destination = 'dest'
+    destination = '.'
 }
 
 repositories {
@@ -19,7 +19,7 @@ task generate << {
     // 対象ファイル作成
     file(destination+'/index.html').with { file ->
         createNewFile()
-        jsonToHtml(readBookmarkData())
+        buildHtml(readBookmarkData())
         //setText(jsonToHtml(readBookmarkData()))
         //println getText()
     }
@@ -34,7 +34,7 @@ def readBookmarkData() {
         }
 }
 
-def jsonToHtml(def bookmarks) {
+def buildHtml(def bookmarks) {
     def builder = new groovy.xml.MarkupBuilder()
     builder.html {
         head {
