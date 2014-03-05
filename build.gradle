@@ -3,10 +3,6 @@ ext {
     dataDirectory = 'data'
 }
 
-repositories {
-    mavenCentral()
-}
-
 task generate << {
     // 対象ファイル作成
     file('index.html').with { file ->
