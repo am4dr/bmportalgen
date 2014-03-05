@@ -3,11 +3,17 @@ ext {
     dataDirectory = 'data'
 }
 
+buildscript {
+    dependencies {
+        classpath files('scripts')
+    }
+}
+
 task generate << {
     // 対象ファイル作成
     file('index.html').with { file ->
         file.createNewFile()
-        file.setText(buildHtml(readBookmarkData()))
+        file.setText(IndexBuilder.build(readBookmarkData()))
     }
 }
 
@@ -18,26 +24,6 @@ def readBookmarkData() {
         .inject([]) { bookmarks, file ->
             bookmarks += slurper.parseText(file.text).bookmarks?:[]
         }
-}
-
-def buildHtml(def bookmarks) {
-    def writer = new StringWriter()
-    def builder = new groovy.xml.MarkupBuilder(writer)
-    builder.html {
-        head {
-            title "bookmarks"
-        }
-        body {
-            ul {
-                bookmarks.each { bookmark ->
-                    li {
-                        a (href:bookmark.url, bookmark.title)
-                    }
-                }
-            }
-        }
-    }
-    writer.toString()
 }
 
 task printDataFiles << {
