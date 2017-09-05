@@ -9,7 +9,7 @@ version: 0.0.1-prototype
 ## 使い方
 対象ディレクトリには対応した形式のテキストファイルが入っているものとして
 
-    groovy generate.groovy 対象ディレクトリ > 出力ファイル.html
+    groovy prototype.groovy 対象ディレクトリ > 出力ファイル.html
 
 
 ## メモの仕様

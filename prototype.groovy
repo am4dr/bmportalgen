@@ -135,7 +135,7 @@ main()
 static final def templateEngine = new groovy.text.GStringTemplateEngine()
 
 @Field
-static final def htmlTemplate = generate.templateEngine.createTemplate('''\
+static final def htmlTemplate = prototype.templateEngine.createTemplate('''\
 <html>
 <head>
     <meta charset="UTF-8">
@@ -192,7 +192,7 @@ ${entries}
 ''')
 
 @Field
-static final def entriesTemplate = generate.templateEngine.createTemplate('''\
+static final def entriesTemplate = prototype.templateEngine.createTemplate('''\
 <details class="directory" open>
     <summary class="directory-name">$directory</summary>
     <ul class="entries">
@@ -201,7 +201,7 @@ ${entries}
 </details>
 ''')
 @Field
-static final def entryTemplate = generate.templateEngine.createTemplate('''\
+static final def entryTemplate = prototype.templateEngine.createTemplate('''\
 <li class="entry">
     <details>
         <summary>${title}<span class="lastModified">$lastModified</span>
@@ -218,6 +218,6 @@ ${text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')}
 ''')
 
 @Field
-static final def linkTemplate = generate.templateEngine.createTemplate('''\
+static final def linkTemplate = prototype.templateEngine.createTemplate('''\
 <li class="link"><a href="${url}">${title}</a></li>''')
 
