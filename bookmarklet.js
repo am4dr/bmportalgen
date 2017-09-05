@@ -1,0 +1,1 @@
+javascript:var e = document.createElement('textarea');e.type = 'text';e.value = "- title: "+document.title+"\n" + "\ \ url: "+document.URL+"\n";document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);void(0);

@@ -1,3 +1,7 @@
+links:
+- title: bmportalgen/README.markdown at master · am4dr/bmportalgen
+  url: https://github.com/am4dr/bmportalgen/blob/master/README.markdown
+
 # bmportalgen
 
 version: 0.0.1-prototype
